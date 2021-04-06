@@ -11,6 +11,7 @@ public class Main {
         book.sendBuyLimitOrder(1000,100);
         book.sendBuyLimitOrder(1000,102);
         book.sendBuyLimitOrder(1000,104);
+        book.sendBuyLimitOrder(2050,106);
 
         book.sendSellLimitOrder(1000,103);
         book.sendSellLimitOrder(1000,108);

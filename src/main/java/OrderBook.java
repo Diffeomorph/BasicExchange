@@ -51,7 +51,7 @@ public class OrderBook {
         }
     }
 
-    //Market order to sell
+    //Limit order to sell
     public void sendSellLimitOrder(double size, double limit){
         Order newOrder = new Order("sell", size, limit);
 
@@ -166,7 +166,7 @@ public class OrderBook {
             System.out.println("---------------------------------------");
         }
 
-        System.out.println("----------------------------------");
+        System.out.println("---------------------------------------");
         System.out.println("SELLS:");
 
         TreeMap<Double, LinkedList<Order>> sellsPriceTree = sells.getPriceMap();
