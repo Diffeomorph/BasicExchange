@@ -30,7 +30,7 @@ public class OrderBook {
                 if (size > current_quantity){
                     size -= current_order.getQuantity();
                     // delete order
-                    buys.delete_order(current_order.getTradeId());
+                    buys.deleteOrder(current_order.getTradeId());
                     Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
                     Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
 
@@ -54,7 +54,7 @@ public class OrderBook {
         Order new_order = new Order("sell", size, -Double.POSITIVE_INFINITY);
 
         while (size > 0 && sells.getDepth() > 0){
-            LinkedList<Order> new_list = sells.min_price_list();
+            LinkedList<Order> new_list = sells.minPriceList();
             int i = 0;
             while (i < new_list.size() && size > 0) {
                 Order current_order = new_list.get(i);
@@ -62,7 +62,7 @@ public class OrderBook {
                 if (size > current_quantity){
                     size -= current_order.getQuantity();
                     // delete order
-                    sells.delete_order(current_order.getTradeId());
+                    sells.deleteOrder(current_order.getTradeId());
                     Logger.Log(new_order.getTradeId(), "sell", current_order.getPrice(), size);
                     Logger.Log(current_order.getTradeId(), "buy", current_order.getPrice(), size); //check log timing here
                 } else {

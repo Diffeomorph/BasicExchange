@@ -30,7 +30,7 @@ public class OrderTree {
         orderMap.put(quote.getTradeId(), quote);
     }
 
-    public void delete_order(int id){
+    public void deleteOrder(int id){
         Order order = orderMap.get(id);
 
         LinkedList<Order> ll = priceTree.get(order.getPrice());
@@ -91,7 +91,7 @@ public class OrderTree {
         }
     }
 
-    public LinkedList min_price_list(){
+    public LinkedList minPriceList(){
         if (depth>0){
             return getQuoteList(minPrice());
         } else {
