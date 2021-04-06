@@ -21,8 +21,8 @@ public class OrderBook {
     public void send_buy_order(double size){
         //create new order
         Order new_order = new Order("buy", size, Double.POSITIVE_INFINITY);
-        while (size > 0 && buys.depth > 0){
-            LinkedList<Order> new_list = buys.max_price_list();
+        while (size > 0 && buys.getDepth() > 0){
+            LinkedList<Order> new_list = buys.maxPriceList();
             int i = 0;
             while (i < new_list.size() && size > 0) {
                 Order current_order = new_list.get(i);
@@ -43,8 +43,8 @@ public class OrderBook {
             }
         }
         if (size > 0){
-            new_order.setPrice(buys.max_price());
-            buys.add_order(new_order);
+            new_order.setPrice(buys.maxPrice());
+            buys.addOrder(new_order);
         }
 
     }
@@ -53,7 +53,7 @@ public class OrderBook {
     public void send_sell_order(double size){
         Order new_order = new Order("sell", size, -Double.POSITIVE_INFINITY);
 
-        while (size > 0 && sells.depth > 0){
+        while (size > 0 && sells.getDepth() > 0){
             LinkedList<Order> new_list = sells.min_price_list();
             int i = 0;
             while (i < new_list.size() && size > 0) {
@@ -74,17 +74,17 @@ public class OrderBook {
             }
         }
         if (size > 0){
-            new_order.setPrice(sells.min_price());
-            sells.add_order(new_order);
+            new_order.setPrice(sells.minPrice());
+            sells.addOrder(new_order);
         }
     }
 
     public Double find_max_buy(){
-        return buys.max_price();
+        return buys.maxPrice();
     }
 
     public Double find_min_sell(){
-        return sells.min_price();
+        return sells.minPrice();
     }
 
 }

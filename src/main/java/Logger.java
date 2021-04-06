@@ -7,9 +7,7 @@ import java.io.FileWriter;
 
 public class Logger {
 
-    public Logger() throws IOException {
-    }
-
+    public Logger() throws IOException { }
 
     public static void Log(int id, String direction, double price, double quantity) {
         try{
@@ -21,8 +19,6 @@ public class Logger {
         } catch (IOException e){
             e.printStackTrace();
         }
-
-
     }
 }
 

@@ -3,42 +3,36 @@ import java.util.LinkedList;
 import java.util.TreeMap;
 
 public class OrderTree {
-    TreeMap<Double, LinkedList<Order>> priceTree = new TreeMap<>();
-    HashMap<Double, LinkedList<Order>> priceMap = new HashMap<>();
-    HashMap<Integer, Order> orderMap = new HashMap<>();
-    int depth;
-    int number_of_orders;
-
+    private TreeMap<Double, LinkedList<Order>> priceTree = new TreeMap<>();
+    private HashMap<Double, LinkedList<Order>> priceMap = new HashMap<>();
+    private HashMap<Integer, Order> orderMap = new HashMap<>();
+    private int depth;
 
     public OrderTree(){
         reset();
     }
 
     public void reset(){
-        priceTree.clear();
-        priceMap.clear();
-        depth = 0;
-        number_of_orders = 0;
+        this.priceTree.clear();
+        this.priceMap.clear();
+        this.depth = 0;
     }
 
-    public void add_order(Order quote){
-        number_of_orders += 1;
-        double q_price = quote.getPrice();
-        if (!priceMap.containsKey(q_price)){
+    public void addOrder(Order quote){
+        double qPrice = quote.getPrice();
+        if (!priceMap.containsKey(qPrice)){
             depth += 1;
             LinkedList<Order> queue = new LinkedList<>();
-            priceTree.put(q_price, queue);
-            priceMap.put(q_price, queue);
+            priceTree.put(qPrice, queue);
+            priceMap.put(qPrice, queue);
         }
-        priceMap.get(q_price).add(quote);
+        priceMap.get(qPrice).add(quote);
         orderMap.put(quote.getTradeId(), quote);
     }
 
     public void delete_order(int id){
         Order order = orderMap.get(id);
-        if (order != null){
-            number_of_orders -= 1;
-        }
+
         LinkedList<Order> ll = priceTree.get(order.getPrice());
         for (int i = 0; i < ll.size(); i++){
             Order order1 = ll.get(i);
@@ -54,7 +48,7 @@ public class OrderTree {
         orderMap.remove(id);
     }
 
-    public void update_order(int id, double quantity){
+    public void updateOrder(int id, double quantity){
         Order order = orderMap.get(id);
         if (order == null){
             return;
@@ -69,7 +63,7 @@ public class OrderTree {
         }
     }
 
-    public Double max_price(){
+    public Double maxPrice(){
         if (depth>0){
             return priceTree.lastKey();
         } else {
@@ -77,7 +71,7 @@ public class OrderTree {
         }
     }
 
-    public Double min_price(){
+    public Double minPrice(){
         if (depth>0){
             return priceTree.lastKey();
         } else {
@@ -85,13 +79,13 @@ public class OrderTree {
         }
     }
 
-    public LinkedList get_quote_list(double price){
+    public LinkedList getQuoteList(double price){
         return priceMap.get(price);
     }
 
-    public LinkedList max_price_list(){
+    public LinkedList maxPriceList(){
         if (depth>0){
-            return get_quote_list(max_price());
+            return getQuoteList(maxPrice());
         } else {
             return null;
         }
@@ -99,9 +93,17 @@ public class OrderTree {
 
     public LinkedList min_price_list(){
         if (depth>0){
-            return get_quote_list(min_price());
+            return getQuoteList(minPrice());
         } else {
             return null;
         }
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public void setDepth(int depth){
+        this.depth = depth;
     }
 }
