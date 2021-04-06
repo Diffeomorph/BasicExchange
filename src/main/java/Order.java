@@ -4,7 +4,7 @@ public class Order {
     private String buyOrSell;
     private double quantity;
     private double price;
-    private Instant entryTime;
+    private final Instant entryTime;
     private int tradeId;
 
     Order(String buyOrSell, double quantity, double price){
@@ -12,7 +12,7 @@ public class Order {
         this.quantity = quantity;
         this.price = price;
         this.buyOrSell = buyOrSell;
-        this.tradeId = OrderBook.MIN_TRADE_ID + 1;
+        this.tradeId = OrderBook.getMinTradeId() + 1;
     }
 
     public String getBuyOrSell(){
@@ -45,6 +45,10 @@ public class Order {
 
     public void setTradeId(int tradeId){
         this.tradeId = tradeId;
+    }
+
+    public Instant getEntryTime(){
+        return entryTime;
     }
 
 

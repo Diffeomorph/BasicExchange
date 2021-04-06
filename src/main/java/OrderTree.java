@@ -54,10 +54,9 @@ public class OrderTree {
             return;
         }
         LinkedList<Order> ll = priceTree.get(order.getPrice());
-        for (int i = 0; i < ll.size(); i++){
-            Order order2 = ll.get(i);
-            if (order2.getTradeId() == id){
-                order2.setQuantity(quantity);
+        for (Order curOrder : ll){
+            if (curOrder.getTradeId() == id){
+                curOrder.setQuantity(quantity);
                 break;
             }
         }
@@ -79,11 +78,11 @@ public class OrderTree {
         }
     }
 
-    public LinkedList getQuoteList(double price){
+    public LinkedList<Order> getQuoteList(double price){
         return priceMap.get(price);
     }
 
-    public LinkedList maxPriceList(){
+    public LinkedList<Order> maxPriceList(){
         if (depth>0){
             return getQuoteList(maxPrice());
         } else {
@@ -91,7 +90,7 @@ public class OrderTree {
         }
     }
 
-    public LinkedList minPriceList(){
+    public LinkedList<Order> minPriceList(){
         if (depth>0){
             return getQuoteList(minPrice());
         } else {

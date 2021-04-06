@@ -1,12 +1,9 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
-
 public class OrderBook {
-    static int MIN_TRADE_ID = 0;
-    OrderTree buys = new OrderTree();
-    OrderTree sells = new OrderTree();
+    private static int MIN_TRADE_ID = 0;
+    private OrderTree buys = new OrderTree();
+    private OrderTree sells = new OrderTree();
 
     OrderBook(){
         reset();
@@ -85,6 +82,10 @@ public class OrderBook {
 
     public Double findMinSell(){
         return sells.minPrice();
+    }
+
+    public static int getMinTradeId(){
+        return MIN_TRADE_ID;
     }
 
 }
