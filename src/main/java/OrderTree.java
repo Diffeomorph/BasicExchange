@@ -63,7 +63,11 @@ public class OrderTree {
     }
 
     public Double maxPrice(){
+        //System.out.println(priceTree);
+        //System.out.println(priceMap);
+
         if (depth>0){
+            //System.out.println(priceTree.lastKey());
             return priceTree.lastKey();
         } else {
             return null;
@@ -72,7 +76,7 @@ public class OrderTree {
 
     public Double minPrice(){
         if (depth>0){
-            return priceTree.lastKey();
+            return priceTree.firstKey();
         } else {
             return null;
         }

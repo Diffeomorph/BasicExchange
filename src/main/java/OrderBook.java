@@ -21,7 +21,8 @@ public class OrderBook {
     public void sendBuyLimitOrder(double size, double limit){
         //create new order
         Order newOrder = new Order("buy", size, limit);
-        while (size > 0 && sells.getDepth() > 0 && limit <= sells.minPrice()){
+
+        while (size > 0 && sells.getDepth() > 0 && limit >= sells.minPrice() && sells.minPrice()!= null){
             LinkedList<Order> curList = sells.minPriceList();
             int i = 0;
             while (i < curList.size() && size > 0) {
@@ -44,20 +45,15 @@ public class OrderBook {
         }
         //leave remainder on the book
         if (size > 0){
-            if (buys.maxPrice() != null){
-                newOrder.setPrice(buys.maxPrice());
-                buys.addOrder(newOrder);
-            }
-
+            buys.addOrder(newOrder);
         }
-
     }
 
     //Market order to sell
     public void sendSellLimitOrder(double size, double limit){
         Order newOrder = new Order("sell", size, limit);
 
-        while (size > 0 && buys.getDepth() > 0 && buys.maxPrice() <= limit){
+        while (size > 0 && buys.getDepth() > 0 && buys.maxPrice() >= limit && buys.maxPrice()!= null){
             LinkedList<Order> curList = buys.maxPriceList();
             int i = 0;
             while (i < curList.size() && size > 0) {
@@ -79,10 +75,7 @@ public class OrderBook {
         }
         //leave remainder on the book
         if (size > 0){
-            if (sells.minPrice() != null) {
-                newOrder.setPrice(sells.minPrice());
-                sells.addOrder(newOrder);
-            }
+            sells.addOrder(newOrder);
         }
     }
 
