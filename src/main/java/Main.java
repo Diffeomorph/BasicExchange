@@ -7,28 +7,29 @@ public class Main {
 
         OrderBook book = new OrderBook();
 
+        Random rand = new Random();
         int limitMinimum = 50;
         int limitMaximum = 150;
-
-        Random rand = null;
-        int randNum = rand.nextInt(limitMaximum-limitMinimum) + limitMinimum;
-
         int quantityMinimum = 50;
         int quantityMaximum = 150;
 
-        Random rand2 = null;
-        int randNum2 = rand2.nextInt(quantityMaximum-quantityMinimum) + quantityMinimum;
-
-        
-
-        book.sendBuyLimitOrder(1000,100);
-        book.sendBuyLimitOrder(1000,102);
-        book.sendBuyLimitOrder(1000,104);
-        book.sendBuyLimitOrder(2050,106);
-
-        book.sendSellLimitOrder(1000,103);
-        book.sendSellLimitOrder(1000,108);
-        book.sendSellLimitOrder(1000,110);
+        int i = 0;
+        while (i < 30){
+            int randLimit = rand.nextInt(limitMaximum-limitMinimum) + limitMinimum;
+            int randQuantity = rand.nextInt(quantityMaximum-quantityMinimum) + quantityMinimum;
+            int randSign = rand.nextInt(2) - 1;
+            int randTime = rand.nextInt(8);
+            TimeUnit.SECONDS.sleep(randTime);
+            while (randSign == 0){
+                randSign = rand.nextInt(3) - 1;
+            }
+            if (randSign == 1){
+                book.sendBuyLimitOrder(randQuantity, randLimit);
+            } else {
+                book.sendSellLimitOrder(randQuantity, randLimit);
+            }
+            i++;
+        }
 
         book.printOrderBook();
 
