@@ -6,7 +6,7 @@ import java.time.Instant;
 public class Logger {
 
     public Logger() throws IOException {
-        
+
     }
 
     public static void Log(int id, String direction, double price, double quantity) {

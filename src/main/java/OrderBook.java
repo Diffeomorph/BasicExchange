@@ -31,7 +31,6 @@ public class OrderBook {
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
-                    System.out.println(curOrder.getTradeId());
                     sells.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
@@ -64,7 +63,6 @@ public class OrderBook {
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
-                    System.out.println(curOrder.getTradeId());
                     buys.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here

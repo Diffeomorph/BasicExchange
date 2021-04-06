@@ -1,2 +1,10 @@
 Id: 5 , Buy/Sell: buy , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T18:40:20.815Z
 Id: 4 , Buy/Sell: sell , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T18:40:20.994Z
+Id: 5 , Buy/Sell: buy , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T18:46:09.927Z
+Id: 4 , Buy/Sell: sell , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T18:46:10.123Z
+Id: 5 , Buy/Sell: buy , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T18:50:09.260Z
+Id: 4 , Buy/Sell: sell , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T18:50:09.409Z
+Id: 5 , Buy/Sell: buy , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T20:32:31.997Z
+Id: 4 , Buy/Sell: sell , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T20:32:32.167Z
+Id: 5 , Buy/Sell: buy , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T20:32:51.626Z
+Id: 4 , Buy/Sell: sell , Price: 106.0 , Quantity: 0.0 , Time: 2021-04-06T20:32:51.769Z
