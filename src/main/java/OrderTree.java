@@ -105,4 +105,8 @@ public class OrderTree {
     public void setDepth(int depth){
         this.depth = depth;
     }
+
+    public TreeMap<Double, LinkedList<Order>> getPriceMap() {
+        return priceTree;
+    }
 }

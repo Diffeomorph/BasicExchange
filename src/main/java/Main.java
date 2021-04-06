@@ -5,10 +5,13 @@ public class Main {
         System.out.println("Starting Program...");
         PriceProcess priceProcess = new PriceProcess();
         OrderBook book = new OrderBook();
-        TimeUnit.SECONDS.sleep(30);
+        TimeUnit.SECONDS.sleep(10);
         System.out.println(priceProcess.queryPrice());
-        //TimeUnit.SECONDS.sleep(30);
-        //System.out.println(priceProcess.queryPrice());
-        book.sendBuyOrder(1000);
+
+        book.sendBuyLimitOrder(1000,100);
+        book.sendSellLimitOrder(1000,100);
+        book.printOrderBook();
+        System.out.println(book.findMaxBuy());
+        System.out.println(book.findMinSell());
     }
 }

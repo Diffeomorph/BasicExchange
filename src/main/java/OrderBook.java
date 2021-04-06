@@ -1,4 +1,6 @@
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class OrderBook {
     private static int MIN_TRADE_ID = 0;
@@ -16,7 +18,7 @@ public class OrderBook {
     }
 
     //Limit order to buy
-    public void sendBuyLimitOrder(double size,double limit){
+    public void sendBuyLimitOrder(double size, double limit){
         //create new order
         Order newOrder = new Order("buy", size, limit);
         while (size > 0 && sells.getDepth() > 0 && limit <= sells.minPrice()){
@@ -42,8 +44,11 @@ public class OrderBook {
         }
         //leave remainder on the book
         if (size > 0){
-            newOrder.setPrice(buys.maxPrice());
-            buys.addOrder(newOrder);
+            if (buys.maxPrice() != null){
+                newOrder.setPrice(buys.maxPrice());
+                buys.addOrder(newOrder);
+            }
+
         }
 
     }
@@ -74,11 +79,13 @@ public class OrderBook {
         }
         //leave remainder on the book
         if (size > 0){
-            newOrder.setPrice(sells.minPrice());
-            sells.addOrder(newOrder);
+            if (sells.minPrice() != null) {
+                newOrder.setPrice(sells.minPrice());
+                sells.addOrder(newOrder);
+            }
         }
     }
-    
+
     //Market order to buy
     public void sendBuyOrder(double size){
         //create new order
@@ -142,6 +149,31 @@ public class OrderBook {
 
     public static int getMinTradeId(){
         return MIN_TRADE_ID;
+    }
+
+    public void printOrderBook(){
+        System.out.println("ORDER BOOK");
+        System.out.println("----------------------------------");
+        System.out.println("BUYS:");
+        TreeMap<Double, LinkedList<Order>> buysPriceTree = buys.getPriceMap();
+        for (Map.Entry<Double, LinkedList<Order>> entry: buysPriceTree.entrySet()){
+            for (int i = 0; i < entry.getValue().size(); i++){
+                System.out.println(entry.getValue().get(i).getPrice() + " , " + entry.getValue().get(i).getQuantity());
+            }
+            System.out.println("---------------------------------------");
+        }
+
+        System.out.println("----------------------------------");
+        System.out.println("SELLS:");
+
+        TreeMap<Double, LinkedList<Order>> sellsPriceTree = sells.getPriceMap();
+        for (Map.Entry<Double, LinkedList<Order>> entry: sellsPriceTree.entrySet()){
+            for (int i = 0; i < entry.getValue().size(); i++){
+                System.out.println(entry.getValue().get(i).getPrice() + " , " + entry.getValue().get(i).getQuantity());
+            }
+            System.out.println("---------------------------------------");
+        }
+
     }
 
 }
