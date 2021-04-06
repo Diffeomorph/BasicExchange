@@ -40,6 +40,7 @@ public class OrderBook {
                 i++;
             }
         }
+        //leave remainder on the book
         if (size > 0){
             newOrder.setPrice(buys.maxPrice());
             buys.addOrder(newOrder);
@@ -71,14 +72,13 @@ public class OrderBook {
                 i++;
             }
         }
+        //leave remainder on the book
         if (size > 0){
             newOrder.setPrice(sells.minPrice());
             sells.addOrder(newOrder);
         }
     }
-
-
-
+    
     //Market order to buy
     public void sendBuyOrder(double size){
         //create new order
@@ -104,11 +104,6 @@ public class OrderBook {
                 i++;
             }
         }
-        if (size > 0){
-            newOrder.setPrice(buys.maxPrice());
-            buys.addOrder(newOrder);
-        }
-
     }
 
     //Market order to sell
@@ -134,10 +129,6 @@ public class OrderBook {
                 }
                 i++;
             }
-        }
-        if (size > 0){
-            newOrder.setPrice(sells.minPrice());
-            sells.addOrder(newOrder);
         }
     }
 
