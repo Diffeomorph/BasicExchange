@@ -79,11 +79,11 @@ public class OrderBook {
         }
     }
 
-    public Double find_max_buy(){
+    public Double findMaxBuy(){
         return buys.maxPrice();
     }
 
-    public Double find_min_sell(){
+    public Double findMinSell(){
         return sells.minPrice();
     }
 
