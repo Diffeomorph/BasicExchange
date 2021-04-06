@@ -15,11 +15,12 @@ public class OrderBook {
         MIN_TRADE_ID = 0;
     }
 
+    //Market order to buy
     public void sendBuyOrder(double size){
         //create new order
         Order newOrder = new Order("buy", size, Double.POSITIVE_INFINITY);
-        while (size > 0 && buys.getDepth() > 0){
-            LinkedList<Order> curList = buys.maxPriceList();
+        while (size > 0 && sells.getDepth() > 0){
+            LinkedList<Order> curList = sells.minPriceList();
             int i = 0;
             while (i < curList.size() && size > 0) {
                 Order curOrder = curList.get(i);
@@ -27,7 +28,7 @@ public class OrderBook {
                 if (size > curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
-                    buys.deleteOrder(curOrder.getTradeId());
+                    sells.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
 
@@ -46,12 +47,12 @@ public class OrderBook {
 
     }
 
-
+    //Market order to sell
     public void sendSellOrder(double size){
         Order newOrder = new Order("sell", size, -Double.POSITIVE_INFINITY);
 
-        while (size > 0 && sells.getDepth() > 0){
-            LinkedList<Order> curList = sells.minPriceList();
+        while (size > 0 && buys.getDepth() > 0){
+            LinkedList<Order> curList = buys.minPriceList();
             int i = 0;
             while (i < curList.size() && size > 0) {
                 Order curOrder = curList.get(i);
@@ -59,7 +60,7 @@ public class OrderBook {
                 if (size > curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
-                    sells.deleteOrder(curOrder.getTradeId());
+                    buys.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
                 } else {

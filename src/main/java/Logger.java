@@ -13,7 +13,7 @@ public class Logger {
             String quantity_str = Double.toString(quantity);
             Instant now = Instant.now();
             FileWriter myWriter = new FileWriter("logfile.txt", true);
-            myWriter.write("id: "+ id  + " , " + "buy/sell: " + direction +  " , " + "price: "+ price_str + " , " + "quantity: " + quantity_str + " , " + "now: " + now);
+            myWriter.write("Id: "+ id  + " , " + "Buy/Sell: " + direction +  " , " + "Price: "+ price_str + " , " + "Quantity: " + quantity_str + " , " + "Time: " + now);
         } catch (IOException e){
             e.printStackTrace();
         }
