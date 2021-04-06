@@ -31,6 +31,7 @@ public class OrderBook {
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
+                    System.out.println(curOrder.getTradeId());
                     sells.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
@@ -63,6 +64,7 @@ public class OrderBook {
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
+                    System.out.println(curOrder.getTradeId());
                     buys.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
@@ -146,6 +148,10 @@ public class OrderBook {
 
     public static int getMinTradeId(){
         return MIN_TRADE_ID;
+    }
+
+    public static void setMinTradeId(int id){
+        MIN_TRADE_ID = id;
     }
 
     public void printOrderBook(){

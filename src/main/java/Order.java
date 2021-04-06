@@ -13,6 +13,7 @@ public class Order {
         this.price = price;
         this.buyOrSell = buyOrSell;
         this.tradeId = OrderBook.getMinTradeId() + 1;
+        OrderBook.setMinTradeId(this.tradeId);
     }
 
     public String getBuyOrSell(){
