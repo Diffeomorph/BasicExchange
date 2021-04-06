@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 
 public class OrderBook {
-    public static int min_trade_id = 0;
+    static int min_trade_id = 0;
     OrderTree buys = new OrderTree();
     OrderTree sells = new OrderTree();
 
@@ -31,9 +31,11 @@ public class OrderBook {
                     size -= current_order.quantity;
                     // delete order
                     buys.delete_order(current_order.trade_id);
+                    Logger.Log("buy", current_order.price, size);
 
                 } else {
                     current_order.quantity = current_quantity - size;
+                    Logger.Log("buy", current_order.price, size);
                 }
                 i++;
             }
@@ -44,6 +46,7 @@ public class OrderBook {
         }
 
     }
+
 
     public void send_sell_order(double size){
         ArrayList<Integer> trades = new ArrayList<>();
@@ -58,8 +61,10 @@ public class OrderBook {
                     size -= current_order.quantity;
                     // delete order
                     sells.delete_order(current_order.trade_id);
+                    Logger.Log("sell", current_order.price, size);
                 } else {
                     current_order.quantity = current_quantity - size;
+                    Logger.Log("sell", current_order.price, size); // look at the ids
                 }
                 i++;
             }
