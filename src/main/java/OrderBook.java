@@ -18,64 +18,64 @@ public class OrderBook {
         MIN_TRADE_ID = 0;
     }
 
-    public void send_buy_order(double size){
+    public void sendBuyOrder(double size){
         //create new order
-        Order new_order = new Order("buy", size, Double.POSITIVE_INFINITY);
+        Order newOrder = new Order("buy", size, Double.POSITIVE_INFINITY);
         while (size > 0 && buys.getDepth() > 0){
-            LinkedList<Order> new_list = buys.maxPriceList();
+            LinkedList<Order> curList = buys.maxPriceList();
             int i = 0;
-            while (i < new_list.size() && size > 0) {
-                Order current_order = new_list.get(i);
-                double current_quantity = current_order.getQuantity();
-                if (size > current_quantity){
-                    size -= current_order.getQuantity();
+            while (i < curList.size() && size > 0) {
+                Order curOrder = curList.get(i);
+                double curQuantity = curOrder.getQuantity();
+                if (size > curQuantity){
+                    size -= curOrder.getQuantity();
                     // delete order
-                    buys.deleteOrder(current_order.getTradeId());
-                    Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
-                    Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
+                    buys.deleteOrder(curOrder.getTradeId());
+                    Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
+                    Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
 
                 } else {
-                    current_order.setQuantity(current_quantity - size);
-                    Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
-                    Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
+                    curOrder.setQuantity(curQuantity - size);
+                    Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
+                    Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                 }
                 i++;
             }
         }
         if (size > 0){
-            new_order.setPrice(buys.maxPrice());
-            buys.addOrder(new_order);
+            newOrder.setPrice(buys.maxPrice());
+            buys.addOrder(newOrder);
         }
 
     }
 
 
-    public void send_sell_order(double size){
-        Order new_order = new Order("sell", size, -Double.POSITIVE_INFINITY);
+    public void sendSellOrder(double size){
+        Order newOrder = new Order("sell", size, -Double.POSITIVE_INFINITY);
 
         while (size > 0 && sells.getDepth() > 0){
-            LinkedList<Order> new_list = sells.minPriceList();
+            LinkedList<Order> curList = sells.minPriceList();
             int i = 0;
-            while (i < new_list.size() && size > 0) {
-                Order current_order = new_list.get(i);
-                double current_quantity = current_order.getQuantity();
-                if (size > current_quantity){
-                    size -= current_order.getQuantity();
+            while (i < curList.size() && size > 0) {
+                Order curOrder = curList.get(i);
+                double curQuantity = curOrder.getQuantity();
+                if (size > curQuantity){
+                    size -= curOrder.getQuantity();
                     // delete order
-                    sells.deleteOrder(current_order.getTradeId());
-                    Logger.Log(new_order.getTradeId(), "sell", current_order.getPrice(), size);
-                    Logger.Log(current_order.getTradeId(), "buy", current_order.getPrice(), size); //check log timing here
+                    sells.deleteOrder(curOrder.getTradeId());
+                    Logger.Log(newOrder.getTradeId(), "sell", curOrder.getPrice(), size);
+                    Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
                 } else {
-                    current_order.setQuantity(current_quantity - size);
-                    Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
-                    Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
+                    curOrder.setQuantity(curQuantity - size);
+                    Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
+                    Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                 }
                 i++;
             }
         }
         if (size > 0){
-            new_order.setPrice(sells.minPrice());
-            sells.addOrder(new_order);
+            newOrder.setPrice(sells.minPrice());
+            sells.addOrder(newOrder);
         }
     }
 
