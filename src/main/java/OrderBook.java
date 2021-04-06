@@ -155,7 +155,7 @@ public class OrderBook {
         TreeMap<Double, LinkedList<Order>> buysPriceTree = buys.getPriceMap();
         for (Map.Entry<Double, LinkedList<Order>> entry: buysPriceTree.entrySet()){
             for (int i = 0; i < entry.getValue().size(); i++){
-                System.out.println(entry.getValue().get(i).getPrice() + " , " + entry.getValue().get(i).getQuantity());
+                System.out.println("ID: "+ entry.getValue().get(i).getTradeId() + " , " + "Price: " + entry.getValue().get(i).getPrice() + " , " + "Quantity: " + entry.getValue().get(i).getQuantity());
             }
             System.out.println("---------------------------------------");
         }
@@ -166,7 +166,7 @@ public class OrderBook {
         TreeMap<Double, LinkedList<Order>> sellsPriceTree = sells.getPriceMap();
         for (Map.Entry<Double, LinkedList<Order>> entry: sellsPriceTree.entrySet()){
             for (int i = 0; i < entry.getValue().size(); i++){
-                System.out.println(entry.getValue().get(i).getPrice() + " , " + entry.getValue().get(i).getQuantity());
+                System.out.println("ID: " + entry.getValue().get(i).getTradeId() + " , " +"Price: " + entry.getValue().get(i).getPrice() + " , " + "Quantity: " + entry.getValue().get(i).getQuantity());
             }
             System.out.println("---------------------------------------");
         }
