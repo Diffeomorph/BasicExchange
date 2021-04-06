@@ -28,7 +28,7 @@ public class OrderBook {
             while (i < curList.size() && size > 0) {
                 Order curOrder = curList.get(i);
                 double curQuantity = curOrder.getQuantity();
-                if (size > curQuantity){
+                if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
                     sells.deleteOrder(curOrder.getTradeId());
@@ -60,7 +60,7 @@ public class OrderBook {
             while (i < curList.size() && size > 0) {
                 Order curOrder = curList.get(i);
                 double curQuantity = curOrder.getQuantity();
-                if (size > curQuantity){
+                if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
                     buys.deleteOrder(curOrder.getTradeId());
@@ -91,7 +91,7 @@ public class OrderBook {
             while (i < curList.size() && size > 0) {
                 Order curOrder = curList.get(i);
                 double curQuantity = curOrder.getQuantity();
-                if (size > curQuantity){
+                if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
                     sells.deleteOrder(curOrder.getTradeId());
@@ -100,6 +100,7 @@ public class OrderBook {
 
                 } else {
                     curOrder.setQuantity(curQuantity - size);
+                    size = 0;
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                 }
@@ -118,7 +119,7 @@ public class OrderBook {
             while (i < curList.size() && size > 0) {
                 Order curOrder = curList.get(i);
                 double curQuantity = curOrder.getQuantity();
-                if (size > curQuantity){
+                if (size >= curQuantity){
                     size -= curOrder.getQuantity();
                     // delete order
                     buys.deleteOrder(curOrder.getTradeId());
@@ -126,6 +127,7 @@ public class OrderBook {
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
                 } else {
                     curOrder.setQuantity(curQuantity - size);
+                    size = 0;
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                 }
