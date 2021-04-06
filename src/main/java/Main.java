@@ -5,14 +5,14 @@ public class Main {
         System.out.println("Starting Program...");
         PriceProcess priceProcess = new PriceProcess();
         OrderBook book = new OrderBook();
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(3);
         System.out.println(priceProcess.queryPrice());
 
         book.sendBuyLimitOrder(1000,100);
         book.sendBuyLimitOrder(1000,102);
         book.sendBuyLimitOrder(1000,104);
 
-        book.sendSellLimitOrder(1000,106);
+        book.sendSellLimitOrder(1000,103);
         book.sendSellLimitOrder(1000,108);
         book.sendSellLimitOrder(1000,110);
 

@@ -37,6 +37,7 @@ public class OrderBook {
 
                 } else {
                     curOrder.setQuantity(curQuantity - size);
+                    size = 0;
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                 }
@@ -67,6 +68,7 @@ public class OrderBook {
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
                 } else {
                     curOrder.setQuantity(curQuantity - size);
+                    size = 0;
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                 }
