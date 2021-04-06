@@ -11,13 +11,13 @@ public class Logger {
     }
 
 
-    public static void Log(String direction, double price, double quantity) {
+    public static void Log(int id, String direction, double price, double quantity) {
         try{
             String price_str = Double.toString(price);
             String quantity_str = Double.toString(quantity);
             Instant now = Instant.now();
             FileWriter myWriter = new FileWriter("logfile.txt", true);
-            myWriter.write("buy/sell: " + direction +  " , " + "price: "+ price_str + " , " + "quantity: " + quantity_str + " , " + "now: " + now);
+            myWriter.write("id: "+ id  + " , " + "buy/sell: " + direction +  " , " + "price: "+ price_str + " , " + "quantity: " + quantity_str + " , " + "now: " + now);
         } catch (IOException e){
             e.printStackTrace();
         }

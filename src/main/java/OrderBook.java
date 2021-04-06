@@ -19,8 +19,8 @@ public class OrderBook {
     }
 
     public void send_buy_order(double size){
-        ArrayList<Integer> trades = new ArrayList<>();
-        //while
+        //create new order
+        Order new_order = new Order("buy", size, Double.POSITIVE_INFINITY);
         while (size > 0 && buys.depth > 0){
             LinkedList<Order> new_list = buys.max_price_list();
             int i = 0;
@@ -31,17 +31,19 @@ public class OrderBook {
                     size -= current_order.quantity;
                     // delete order
                     buys.delete_order(current_order.trade_id);
-                    Logger.Log("buy", current_order.price, size);
+                    Logger.Log(new_order.trade_id, "buy", current_order.price, size);
+                    Logger.Log(current_order.trade_id, "sell", current_order.price, size);
 
                 } else {
                     current_order.quantity = current_quantity - size;
-                    Logger.Log("buy", current_order.price, size);
+                    Logger.Log(new_order.trade_id, "buy", current_order.price, size);
+                    Logger.Log(current_order.trade_id, "sell", current_order.price, size);
                 }
                 i++;
             }
         }
         if (size > 0){
-            Order new_order = new Order("buy", size, buys.max_price());
+            new_order.price = buys.max_price();
             buys.add_order(new_order);
         }
 
@@ -49,8 +51,8 @@ public class OrderBook {
 
 
     public void send_sell_order(double size){
-        ArrayList<Integer> trades = new ArrayList<>();
-        //while
+        Order new_order = new Order("sell", size, -Double.POSITIVE_INFINITY);
+
         while (size > 0 && sells.depth > 0){
             LinkedList<Order> new_list = sells.min_price_list();
             int i = 0;
@@ -61,16 +63,18 @@ public class OrderBook {
                     size -= current_order.quantity;
                     // delete order
                     sells.delete_order(current_order.trade_id);
-                    Logger.Log("sell", current_order.price, size);
+                    Logger.Log(new_order.trade_id, "sell", current_order.price, size);
+                    Logger.Log(current_order.trade_id, "buy", current_order.price, size);
                 } else {
                     current_order.quantity = current_quantity - size;
-                    Logger.Log("sell", current_order.price, size); // look at the ids
+                    Logger.Log(new_order.trade_id, "buy", current_order.price, size);
+                    Logger.Log(current_order.trade_id, "sell", current_order.price, size);
                 }
                 i++;
             }
         }
         if (size > 0){
-            Order new_order = new Order("sell", size, sells.min_price());
+            new_order.price = sells.min_price();
             sells.add_order(new_order);
         }
     }
