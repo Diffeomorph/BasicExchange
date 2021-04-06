@@ -6,8 +6,8 @@ public class Main {
         PriceProcess p = new PriceProcess();
         OrderBook book = new OrderBook();
         TimeUnit.SECONDS.sleep(30);
-        System.out.println(p.query_price());
+        System.out.println(p.queryPrice());
         TimeUnit.SECONDS.sleep(30);
-        System.out.println(p.query_price());
+        System.out.println(p.queryPrice());
     }
 }

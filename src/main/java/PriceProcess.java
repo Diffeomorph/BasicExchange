@@ -3,18 +3,18 @@ import java.time.Instant;
 import java.util.Random;
 
 public class PriceProcess {
-    double price;
-    Instant last_time;
+    private double price;
+    private Instant lastTime;
 
     PriceProcess(){
         System.out.println("Starting Price Process...");
-        price = 0;
-        last_time = Instant.now();
+        this.price = 0;
+        this.lastTime = Instant.now();
     }
 
-    double query_price(){
-        Instant cur_time = Instant.now();
-        Duration res = Duration.between(last_time, cur_time);
+    public double queryPrice(){
+        Instant curTime = Instant.now();
+        Duration res = Duration.between(lastTime, curTime);
         Random rn = new Random();
         int maximum = (int) res.getSeconds();
         int minimum = -maximum;
@@ -22,6 +22,22 @@ public class PriceProcess {
         int randNum = rn.nextInt(range) + minimum;
         price += randNum*(0.014/Math.sqrt(86400)); //average daily volatility of s&p500 is 1.4%, then divided by sqrt of time
         return price;
+    }
+
+    public double getPrice(){
+        return price;
+    }
+
+    public void setPrice(double price){
+        this.price = price;
+    }
+
+    public double getLastTime(){
+        return price;
+    }
+
+    public void setLastTime(Instant lastTime){
+        this.lastTime = lastTime;
     }
 
 }
