@@ -1,18 +1,51 @@
 import java.time.Instant;
 
 public class Order {
-    String buy_or_sell;
-    double quantity;
-    double price;
-    Instant entry_time;
-    int trade_id;
+    private String buyOrSell;
+    private double quantity;
+    private double price;
+    private Instant entryTime;
+    private int tradeId;
 
-    Order(String b_or_s, double qty, double px){
-        entry_time = Instant.now();
-        quantity = qty;
-        price = px;
-        buy_or_sell = b_or_s;
-        trade_id = OrderBook.min_trade_id + 1;
+    Order(String buyOrSell, double quantity, double price){
+        this.entryTime = Instant.now();
+        this.quantity = quantity;
+        this.price = price;
+        this.buyOrSell = buyOrSell;
+        this.tradeId = OrderBook.MIN_TRADE_ID + 1;
     }
+
+    public String getBuyOrSell(){
+        return buyOrSell;
+    }
+
+    public void setBuyOrSell(String buyOrSell){
+        this.buyOrSell = buyOrSell;
+    }
+
+    public double getQuantity(){
+        return quantity;
+    }
+
+    public void setQuantity(double quantity){
+        this.quantity = quantity;
+    }
+
+    public double getPrice(){
+        return price;
+    }
+
+    public void setPrice(double price){
+        this.price = price;
+    }
+
+    public int getTradeId(){
+        return tradeId;
+    }
+
+    public void setTradeId(int tradeId){
+        this.tradeId = tradeId;
+    }
+
 
 }

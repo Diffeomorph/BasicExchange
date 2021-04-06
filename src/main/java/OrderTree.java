@@ -23,7 +23,7 @@ public class OrderTree {
 
     public void add_order(Order quote){
         number_of_orders += 1;
-        double q_price = quote.price;
+        double q_price = quote.getPrice();
         if (!priceMap.containsKey(q_price)){
             depth += 1;
             LinkedList<Order> queue = new LinkedList<>();
@@ -31,7 +31,7 @@ public class OrderTree {
             priceMap.put(q_price, queue);
         }
         priceMap.get(q_price).add(quote);
-        orderMap.put(quote.trade_id, quote);
+        orderMap.put(quote.getTradeId(), quote);
     }
 
     public void delete_order(int id){
@@ -39,17 +39,17 @@ public class OrderTree {
         if (order != null){
             number_of_orders -= 1;
         }
-        LinkedList<Order> ll = priceTree.get(order.price);
+        LinkedList<Order> ll = priceTree.get(order.getPrice());
         for (int i = 0; i < ll.size(); i++){
             Order order1 = ll.get(i);
-            if (order1.trade_id == id){
+            if (order1.getTradeId() == id){
                 ll.remove(order1);
                 break;
             }
         }
         if (ll.size()==0){
-            priceTree.remove(order.price);
-            priceMap.remove(order.price);
+            priceTree.remove(order.getPrice());
+            priceMap.remove(order.getPrice());
         }
         orderMap.remove(id);
     }
@@ -59,11 +59,11 @@ public class OrderTree {
         if (order == null){
             return;
         }
-        LinkedList<Order> ll = priceTree.get(order.price);
+        LinkedList<Order> ll = priceTree.get(order.getPrice());
         for (int i = 0; i < ll.size(); i++){
             Order order2 = ll.get(i);
-            if (order2.trade_id == id){
-                order2.quantity = quantity;
+            if (order2.getTradeId() == id){
+                order2.setQuantity(quantity);
                 break;
             }
         }

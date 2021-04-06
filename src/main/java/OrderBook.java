@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 
 public class OrderBook {
-    static int min_trade_id = 0;
+    static int MIN_TRADE_ID = 0;
     OrderTree buys = new OrderTree();
     OrderTree sells = new OrderTree();
 
@@ -15,7 +15,7 @@ public class OrderBook {
     public void reset(){
         buys.reset();
         sells.reset();
-        min_trade_id = 0;
+        MIN_TRADE_ID = 0;
     }
 
     public void send_buy_order(double size){
@@ -26,24 +26,24 @@ public class OrderBook {
             int i = 0;
             while (i < new_list.size() && size > 0) {
                 Order current_order = new_list.get(i);
-                double current_quantity = current_order.quantity;
+                double current_quantity = current_order.getQuantity();
                 if (size > current_quantity){
-                    size -= current_order.quantity;
+                    size -= current_order.getQuantity();
                     // delete order
-                    buys.delete_order(current_order.trade_id);
-                    Logger.Log(new_order.trade_id, "buy", current_order.price, size);
-                    Logger.Log(current_order.trade_id, "sell", current_order.price, size);
+                    buys.delete_order(current_order.getTradeId());
+                    Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
+                    Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
 
                 } else {
-                    current_order.quantity = current_quantity - size;
-                    Logger.Log(new_order.trade_id, "buy", current_order.price, size);
-                    Logger.Log(current_order.trade_id, "sell", current_order.price, size);
+                    current_order.setQuantity(current_quantity - size);
+                    Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
+                    Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
                 }
                 i++;
             }
         }
         if (size > 0){
-            new_order.price = buys.max_price();
+            new_order.setPrice(buys.max_price());
             buys.add_order(new_order);
         }
 
@@ -58,23 +58,23 @@ public class OrderBook {
             int i = 0;
             while (i < new_list.size() && size > 0) {
                 Order current_order = new_list.get(i);
-                double current_quantity = current_order.quantity;
+                double current_quantity = current_order.getQuantity();
                 if (size > current_quantity){
-                    size -= current_order.quantity;
+                    size -= current_order.getQuantity();
                     // delete order
-                    sells.delete_order(current_order.trade_id);
-                    Logger.Log(new_order.trade_id, "sell", current_order.price, size);
-                    Logger.Log(current_order.trade_id, "buy", current_order.price, size);
+                    sells.delete_order(current_order.getTradeId());
+                    Logger.Log(new_order.getTradeId(), "sell", current_order.getPrice(), size);
+                    Logger.Log(current_order.getTradeId(), "buy", current_order.getPrice(), size); //check log timing here
                 } else {
-                    current_order.quantity = current_quantity - size;
-                    Logger.Log(new_order.trade_id, "buy", current_order.price, size);
-                    Logger.Log(current_order.trade_id, "sell", current_order.price, size);
+                    current_order.setQuantity(current_quantity - size);
+                    Logger.Log(new_order.getTradeId(), "buy", current_order.getPrice(), size);
+                    Logger.Log(current_order.getTradeId(), "sell", current_order.getPrice(), size);
                 }
                 i++;
             }
         }
         if (size > 0){
-            new_order.price = sells.min_price();
+            new_order.setPrice(sells.min_price());
             sells.add_order(new_order);
         }
     }
