@@ -38,15 +38,15 @@ public class OrderTree {
     public void deleteOrder(int id){
         Order order = orderMap.get(id);
 
-        LinkedList<Order> ll = priceTree.get(order.getPrice());
-        for (int i = 0; i < ll.size(); i++){
-            Order order1 = ll.get(i);
+        LinkedList<Order> priceList = priceTree.get(order.getPrice());
+        for (int i = 0; i < priceList.size(); i++){
+            Order order1 = priceList.get(i);
             if (order1.getTradeId() == id){
-                ll.remove(order1);
+                priceList.remove(order1);
                 break;
             }
         }
-        if (ll.size()==0){ // if no more orders at price level delete this price level
+        if (priceList.size()==0){ // if no more orders at price level delete this price level
             priceTree.remove(order.getPrice());
             priceMap.remove(order.getPrice());
             depth -= 1;
@@ -59,8 +59,8 @@ public class OrderTree {
         if (order == null){
             return;
         }
-        LinkedList<Order> ll = priceTree.get(order.getPrice());
-        for (Order curOrder : ll){
+        LinkedList<Order> priceList = priceTree.get(order.getPrice());
+        for (Order curOrder : priceList){
             if (curOrder.getTradeId() == id){
                 curOrder.setQuantity(quantity);
                 break;

@@ -41,7 +41,7 @@ public class Main {
 
     }
 
-    /* Old main function used to testing in development. Creates price process and
+    /* Old main function used for testing in development. Creates price process and
      * manually generated orders to be sent to the OrderBook.
      */
 
