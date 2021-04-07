@@ -7,21 +7,27 @@ public class Main {
 
         OrderBook book = new OrderBook();
 
+        /* parameters for the main while loop sending orders to the order book.
+         * These variables can be changed as desired.
+         */
         Random rand = new Random();
         int limitMinimum = 50;
         int limitMaximum = 150;
         int quantityMinimum = 50;
         int quantityMaximum = 150;
 
+        int numberOfOrders = 30;
+
         int i = 0;
-        while (i < 30){
+        while (i < numberOfOrders){
             int randLimit = rand.nextInt(limitMaximum-limitMinimum) + limitMinimum;
             int randQuantity = rand.nextInt(quantityMaximum-quantityMinimum) + quantityMinimum;
-            int randSign = rand.nextInt(2) - 1;
+            int randSign = rand.nextInt(3) - 1; // randSign range between [-1,1]
             int randTime = rand.nextInt(8);
             TimeUnit.SECONDS.sleep(randTime);
+            // enforce randSign to be +1 or -1 in order for buy/sell
             while (randSign == 0){
-                randSign = rand.nextInt(3) - 1;
+                randSign = rand.nextInt(3) - 1; // check this is wrong
             }
             if (randSign == 1){
                 book.sendBuyLimitOrder(randQuantity, randLimit);

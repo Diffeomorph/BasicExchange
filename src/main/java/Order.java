@@ -4,7 +4,7 @@ public class Order {
     private String buyOrSell;
     private double quantity;
     private double price;
-    private final Instant entryTime;
+    private final Instant entryTime; // time Order is created
     private int tradeId;
 
     Order(String buyOrSell, double quantity, double price){

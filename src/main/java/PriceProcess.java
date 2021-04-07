@@ -2,6 +2,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Random;
 
+/* The PriceProcess creates a "ticking" price time series.
+ * The queryPrice function when called generates a random jump, proportional to time and volatility
+ * from the last queried time or the first start time of the class.
+ */
 public class PriceProcess {
     private double price;
     private Instant lastTime;

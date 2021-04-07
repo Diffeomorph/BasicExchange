@@ -8,7 +8,9 @@ public class Logger {
     public Logger() throws IOException {
 
     }
-
+    /* Log function to log completed transactions in the order book.
+     * Writes currently to a txt file, logfile.txt.
+     */
     public static void Log(int id, String direction, double price, double quantity) {
         try{
             String price_str = Double.toString(price);

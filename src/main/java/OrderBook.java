@@ -2,8 +2,11 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/* The OrderBook Class is formed from two OrderTrees, one for the buys,
+ * the other for the sells.
+*/
 public class OrderBook {
-    private static int MIN_TRADE_ID = 0;
+    private static int MAX_TRADE_ID = 0; // current largest trade id, links to Order class
     private OrderTree buys = new OrderTree();
     private OrderTree sells = new OrderTree();
 
@@ -14,14 +17,14 @@ public class OrderBook {
     public void reset(){
         buys.reset();
         sells.reset();
-        MIN_TRADE_ID = 0;
+        MAX_TRADE_ID = 0;
     }
 
-    //Limit order to buy
     public void sendBuyLimitOrder(double size, double limit){
         //create new order
         Order newOrder = new Order("buy", size, limit);
 
+        // iterates over the OrderBook checking off possible trades
         while (size > 0 && sells.getDepth() > 0 && limit >= sells.minPrice() && sells.minPrice()!= null){
             LinkedList<Order> curList = sells.minPriceList();
             int i = 0;
@@ -30,13 +33,13 @@ public class OrderBook {
                 double curQuantity = curOrder.getQuantity();
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
-                    // delete order
+                    // delete order and tidy up OrderBook
                     sells.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
 
                 } else {
-                    curOrder.setQuantity(curQuantity - size);
+                    curOrder.setQuantity(curQuantity - size); // resize order previously sitting on OrderBook
                     size = 0;
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
@@ -44,13 +47,12 @@ public class OrderBook {
                 i++;
             }
         }
-        //leave remainder on the book
+        // leave remainder of original limit order on the book
         if (size > 0){
             buys.addOrder(newOrder);
         }
     }
 
-    //Limit order to sell
     public void sendSellLimitOrder(double size, double limit){
         Order newOrder = new Order("sell", size, limit);
 
@@ -62,7 +64,6 @@ public class OrderBook {
                 double curQuantity = curOrder.getQuantity();
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
-                    // delete order
                     buys.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
@@ -75,16 +76,16 @@ public class OrderBook {
                 i++;
             }
         }
-        //leave remainder on the book
+        // leave remainder of limit order on the book
         if (size > 0){
             sells.addOrder(newOrder);
         }
     }
 
-    //Market order to buy
-    public void sendBuyOrder(double size){
-        //create new order
-        Order newOrder = new Order("buy", size, Double.POSITIVE_INFINITY);
+    public void sendMarketBuyOrder(double size){
+        Order newOrder = new Order("buy", size, Double.POSITIVE_INFINITY); //limit is positive infinity as market order will "walk the book"
+
+        // iterate through the book, ticking up trades that are possible, up to the size specified in the function
         while (size > 0 && sells.getDepth() > 0){
             LinkedList<Order> curList = sells.minPriceList();
             int i = 0;
@@ -109,8 +110,7 @@ public class OrderBook {
         }
     }
 
-    //Market order to sell
-    public void sendSellOrder(double size){
+    public void sendMarketSellOrder(double size){
         Order newOrder = new Order("sell", size, -Double.POSITIVE_INFINITY);
 
         while (size > 0 && buys.getDepth() > 0){
@@ -121,7 +121,6 @@ public class OrderBook {
                 double curQuantity = curOrder.getQuantity();
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
-                    // delete order
                     buys.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "sell", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "buy", curOrder.getPrice(), size); //check log timing here
@@ -145,11 +144,11 @@ public class OrderBook {
     }
 
     public static int getMinTradeId(){
-        return MIN_TRADE_ID;
+        return MAX_TRADE_ID;
     }
 
     public static void setMinTradeId(int id){
-        MIN_TRADE_ID = id;
+        MAX_TRADE_ID = id;
     }
 
     public void printOrderBook(){
