@@ -46,7 +46,7 @@ public class OrderTree {
                 break;
             }
         }
-        if (ll.size()==0){ // if no more orders at price level, delete this price level
+        if (ll.size()==0){ // if no more orders at price level delete this price level
             priceTree.remove(order.getPrice());
             priceMap.remove(order.getPrice());
             depth -= 1;
