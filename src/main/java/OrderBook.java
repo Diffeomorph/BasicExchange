@@ -94,7 +94,7 @@ public class OrderBook {
                 double curQuantity = curOrder.getQuantity();
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
-                    // delete order
+                    // delete order to tidy up OrderBook
                     sells.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);

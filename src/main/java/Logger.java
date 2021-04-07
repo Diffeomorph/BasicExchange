@@ -9,7 +9,7 @@ public class Logger {
 
     }
     /* Log function to log completed transactions in the order book.
-     * Writes currently to a txt file, logfile.txt.
+     * Writes currently to a txt file: logfile.txt.
      */
     public static void Log(int id, String direction, double price, double quantity) {
         try{

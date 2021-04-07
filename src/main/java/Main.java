@@ -25,7 +25,7 @@ public class Main {
             int randSign = rand.nextInt(3) - 1; // randSign range between [-1,1]
             int randTime = rand.nextInt(8);
             TimeUnit.SECONDS.sleep(randTime);
-            // enforce randSign to be +1 or -1 in order for buy/sell
+            // enforce randSign to be +1 or -1 in order to correspond with buy/sell
             while (randSign == 0){
                 randSign = rand.nextInt(3) - 1; // check this is wrong
             }
