@@ -7,7 +7,7 @@ public class Main {
 
         OrderBook book = new OrderBook();
 
-        /* parameters for the main while loop sending orders to the order book.
+        /* Parameters for the main while loop sending orders to the order book.
          * These variables can be changed as desired.
          */
         Random rand = new Random();
@@ -40,6 +40,10 @@ public class Main {
         book.printOrderBook();
 
     }
+
+    /* Old main function used to testing in development. Creates price process and
+     * manually generated orders to be sent to the OrderBook.
+     */
 
     public static void main2(String[] args) throws InterruptedException {
         System.out.println("Starting Program...");

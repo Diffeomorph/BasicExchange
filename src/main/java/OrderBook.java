@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 /* The OrderBook Class is formed from two OrderTrees, one for the buys,
  * the other for the sells.
-*/
+ */
 public class OrderBook {
     private static int MAX_TRADE_ID = 0; // current largest trade id, links to Order class
     private OrderTree buys = new OrderTree();
@@ -25,7 +25,7 @@ public class OrderBook {
         Order newOrder = new Order("buy", size, limit);
 
         // iterates over the OrderBook checking off possible trades
-        while (size > 0 && sells.getDepth() > 0 && limit >= sells.minPrice() && sells.minPrice()!= null){
+        while (size > 0 && sells.getDepth() > 0 && sells.minPrice() != null && limit >= sells.minPrice()){
             LinkedList<Order> curList = sells.minPriceList();
             int i = 0;
             while (i < curList.size() && size > 0) {
@@ -33,7 +33,7 @@ public class OrderBook {
                 double curQuantity = curOrder.getQuantity();
                 if (size >= curQuantity){
                     size -= curOrder.getQuantity();
-                    // delete order and tidy up OrderBook
+                    // delete order to tidy up OrderBook
                     sells.deleteOrder(curOrder.getTradeId());
                     Logger.Log(newOrder.getTradeId(), "buy", curOrder.getPrice(), size);
                     Logger.Log(curOrder.getTradeId(), "sell", curOrder.getPrice(), size);
@@ -56,7 +56,7 @@ public class OrderBook {
     public void sendSellLimitOrder(double size, double limit){
         Order newOrder = new Order("sell", size, limit);
 
-        while (size > 0 && buys.getDepth() > 0 && buys.maxPrice() >= limit && buys.maxPrice()!= null){
+        while (size > 0 && buys.getDepth() > 0 && buys.maxPrice() != null && buys.maxPrice() >= limit){
             LinkedList<Order> curList = buys.maxPriceList();
             int i = 0;
             while (i < curList.size() && size > 0) {
@@ -85,7 +85,7 @@ public class OrderBook {
     public void sendMarketBuyOrder(double size){
         Order newOrder = new Order("buy", size, Double.POSITIVE_INFINITY); //limit is positive infinity as market order will "walk the book"
 
-        // iterate through the book, ticking up trades that are possible, up to the size specified in the function
+        // iterate through the book, ticking off trades that are possible, up to the size specified in the function
         while (size > 0 && sells.getDepth() > 0){
             LinkedList<Order> curList = sells.minPriceList();
             int i = 0;

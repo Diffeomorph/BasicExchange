@@ -15,10 +15,9 @@ public class Logger {
         try{
             String price_str = Double.toString(price);
             String quantity_str = Double.toString(quantity);
-            //System.out.println("entered");
             Instant time = Instant.now();
             String now = time.toString();
-            FileWriter myWriter = new FileWriter("logfile.txt", true);
+            FileWriter myWriter = new FileWriter("logfile.txt", true); // true appends to original file
 
             myWriter.write("Id: "+ id  + " , " + "Buy/Sell: " + direction +  " , " + "Price: "+ price_str + " , " + "Quantity: " + quantity_str + " , " + "Time: " + now + System.getProperty( "line.separator" ));
             myWriter.close();

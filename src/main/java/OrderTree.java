@@ -2,10 +2,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-/* The OrderTree class create half an OrderBook from two priceTree. These are balanced BSTs for efficiency reasons.
+/* The OrderTree class creates half an OrderBook from two priceTrees. These are balanced BSTs for efficiency reasons.
  * We also create a priceMap, a hashmap, so that we can find all orders at a certain price quickly.
  * The orderMap is another hashmap for efficiently finding an order in the priceTree given its order id.
- *  The depth is the depth number of different price levels we have in the book.
+ *  The depth is the number of different price levels we have in the book.
  */
 public class OrderTree {
     private TreeMap<Double, LinkedList<Order>> priceTree = new TreeMap<>();
@@ -49,6 +49,7 @@ public class OrderTree {
         if (ll.size()==0){ // if no more orders at price level, delete this price level
             priceTree.remove(order.getPrice());
             priceMap.remove(order.getPrice());
+            depth -= 1;
         }
         orderMap.remove(id);
     }
