@@ -1,11 +1,11 @@
 import java.time.Instant;
 
 public class Order {
-    private String buyOrSell;
+    final private String buyOrSell;
     private double quantity;
-    private double price;
+    final private double price;
     private final Instant entryTime; // time Order is created
-    private int tradeId;
+    final private int tradeId;
 
     Order(String buyOrSell, double quantity, double price){
         this.entryTime = Instant.now();
@@ -20,9 +20,9 @@ public class Order {
         return buyOrSell;
     }
 
-    public void setBuyOrSell(String buyOrSell){
-        this.buyOrSell = buyOrSell;
-    }
+    //public void setBuyOrSell(String buyOrSell){
+    //    this.buyOrSell = buyOrSell;
+    //}
 
     public double getQuantity(){
         return quantity;
@@ -36,17 +36,17 @@ public class Order {
         return price;
     }
 
-    public void setPrice(double price){
-        this.price = price;
-    }
+    //public void setPrice(double price){
+    //    this.price = price;
+    //}
 
     public int getTradeId(){
         return tradeId;
     }
 
-    public void setTradeId(int tradeId){
-        this.tradeId = tradeId;
-    }
+    //public void setTradeId(int tradeId){
+    //    this.tradeId = tradeId;
+    //}
 
     public Instant getEntryTime(){
         return entryTime;
